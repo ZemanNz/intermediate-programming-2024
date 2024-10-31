@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 // TODO: doplťe co potřebujete
 
 
@@ -13,7 +14,9 @@
 // ⟦(3412)₇⟧ – skutečně, ⟦3⋅7³ + 4⋅7² + 1⋅7¹ + 2⋅7⁰ = 1029 + 196 + 7
 // + 2 = 1234⟧.  Proto ‹power_digit_sum(1234)› získáme jako ⟦3¹ + 4²
 // + 1³ + 2⁴ = 36⟧.
-
+int power_digit_sum(int number){
+    
+}
 
 
 // Napište funkci, která najde celé číslo ‹x›, které leží mezi
