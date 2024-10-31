@@ -60,5 +60,5 @@ int fibonacci(int idx) {
 int main() {
     std::cout<<hollow_rect(8, 8, 3)<< std::endl;
     std::cout<<power(3,4)<< std::endl;
-    std::cout<<fibonacci(7)<< std::endl;
+    std::cout<<fibonacci(7)<< std::endl; 
 }
