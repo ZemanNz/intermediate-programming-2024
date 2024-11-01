@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+#include <vector>
 // TODO: doplťe co potřebujete
 
 
@@ -14,8 +15,38 @@
 // ⟦(3412)₇⟧ – skutečně, ⟦3⋅7³ + 4⋅7² + 1⋅7¹ + 2⋅7⁰ = 1029 + 196 + 7
 // + 2 = 1234⟧.  Proto ‹power_digit_sum(1234)› získáme jako ⟦3¹ + 4²
 // + 1³ + 2⁴ = 36⟧.
-int power_digit_sum(int number){
-    
+int power_digit_sum(int number) {
+    int soucet = 0;
+    int position = 1; // Pozici začneme od 1 (první cifra zleva má pozici 1).
+    int delka;
+    int number_z= number;
+    // Projdeme všechny cifry v sedmičkové soustavě, dokud je číslo větší než 0.
+    while (number_z > 0) {
+        number_z /= 7; 
+        delka++;
+    }
+    std::vector<int> zbytky(delka, 0);
+    while (number > 0) {
+        zbytky[delka-position] = number % 7;
+        number /= 7; 
+        position++;
+    }
+    for (int i = 0; i < delka; i++) {
+        std::cout << "zbytek[" << i << "] = " << zbytky[i] << std::endl;
+    }
+    ////////////////////////////
+    int opak=1;
+    for(int i=0; i < delka; i++){
+            int cast=1;
+            for(int f=0; f<opak; f++){
+                cast = (cast * zbytky[i]);
+            }
+            std::cout<<"cast"<<std::endl;
+            std::cout<<cast<<std::endl;
+            soucet = (soucet+ cast);   
+            opak++;
+    } 
+    return soucet;
 }
 
 
@@ -62,4 +93,7 @@ int first_day(int year) {
     int years = year - 1601;
     int offset = years + years / 4 - years / 100 + years / 400;
     return offset % 7;
+}
+int main(){
+std::cout<<power_digit_sum(1234)<<std::endl;
 }
