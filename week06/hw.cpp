@@ -114,8 +114,63 @@ int first_day(int year) {
     int offset = years + years / 4 - years / 100 + years / 400;
     return offset % 7;
 }
+
+int pocet_p_d(int year){
+    int zacatek = first_day(year);
+    int pocet_dni= 365;
+    if((year%4==0)){
+        pocet_dni++;
+    }
+    if((year%100==0)&&(year%400 >0)){
+        pocet_dni--;
+    }
+    int Den_obnovy= 0;
+    int Svatek_prace= 124;
+    int Den_vitezstvi= 127;
+    int Den_slovanskych= 185;
+    int Den_upaleni= 186;
+    int Den_ceske= 270;
+    int Den_vzniku=300;
+    int Den_boje= 320;
+    int Stedry_den= 357;
+    int SV1= 358;
+    int SV2= 359;
+    int vysledek= (pocet_dni - 2);
+    if(pocet_dni==366){
+        Svatek_prace++;
+        Den_vitezstvi++;
+        Den_slovanskych++;
+        Den_upaleni++;
+        Den_ceske++;
+        Den_vzniku++;
+        Den_boje++;
+        Stedry_den++;
+        SV1++;
+        SV2++;
+    }
+    int oo= zacatek;
+    for(int den=0; den < pocet_dni; den++){
+        
+        if ((oo == 5 || oo == 6) || (den == Den_obnovy || den == Svatek_prace || den == Den_vitezstvi || 
+            den == Den_slovanskych || den == Den_upaleni || den == Den_ceske || 
+            den == Den_vzniku || den == Den_boje || den == Stedry_den || 
+            den == SV1 || den == SV2)) {
+            vysledek--;
+            
+        }
+        if(oo==6){
+            oo=0;
+        }
+        else{
+          oo++;  
+        }
+    }
+    return vysledek;
+    
+}
 int main(){
-std::cout<<power_digit_sum(1234)<<std::endl;
-std::cout<<"biggest(-10, 10)"<<std::endl;
-std::cout<<biggest(-10, 10)<<std::endl;
+//std::cout<<power_digit_sum(1234)<<std::endl;
+//std::cout<<"biggest(-10, 10)"<<std::endl;
+//std::cout<<biggest(-10, 10)<<std::endl;
+std::cout<<pocet_p_d(2023)<<std::endl;
 }
