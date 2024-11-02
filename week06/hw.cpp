@@ -55,10 +55,30 @@ int power_digit_sum(int number) {
 // maximální hodnotu (tzn. libovolné ⟦x⟧ takové, že pro všechny ⟦x'⟧
 // platí ⟦f(x) ≥ f(x')⟧, kde ⟦f⟧ je funkce, kterou počítá podprogram
 // ‹poly›).
-
 int poly(int x) {
-    return 10 + 30 * x - 15 * x * x * x + x * x * x * x * x;
+    return (10 + (30 * x) - (15 * x * x * x) + (x * x * x * x * x));
 }
+///////////////úúúúúúúúúúúúúúúúúú
+int biggest(int low, int high){
+    int hodnota=low;
+    int minuly;
+for(int i=low; i<= high ; i++){
+    int vysledek= poly(hodnota);
+    std::cout<<"i:"<<std::endl;
+    std::cout<<i<<std::endl;
+    std::cout<<"vysledek:"<<std::endl;
+    std::cout<<vysledek<<std::endl;
+    hodnota=(hodnota+1);
+    if(i == 0){
+        minuly=vysledek;
+    }
+    if((vysledek > minuly)&&(i >= 1)){
+        minuly=vysledek;
+    }
+}
+return minuly;
+}
+
 
 
 // Napište funkci, která zjistí, kolik bude pracovních dnů v roce
@@ -96,4 +116,6 @@ int first_day(int year) {
 }
 int main(){
 std::cout<<power_digit_sum(1234)<<std::endl;
+std::cout<<"biggest(-10, 10)"<<std::endl;
+std::cout<<biggest(-10, 10)<<std::endl;
 }
