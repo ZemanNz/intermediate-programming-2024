@@ -64,10 +64,6 @@ int biggest(int low, int high){
     int minuly;
 for(int i=low; i<= high ; i++){
     int vysledek= poly(hodnota);
-    std::cout<<"i:"<<std::endl;
-    std::cout<<i<<std::endl;
-    std::cout<<"vysledek:"<<std::endl;
-    std::cout<<vysledek<<std::endl;
     hodnota=(hodnota+1);
     if(i == 0){
         minuly=vysledek;
