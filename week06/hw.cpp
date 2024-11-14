@@ -3,6 +3,29 @@
 #include <vector>
 // TODO: doplťe co potřebujete
 
+void print (std::vector<int> a){
+    std::cout<<"[";
+    for(std::size_t i=0; i< a.size(); i++){
+        if((a.size()-i )== 1){
+          std::cout<< a[i];   
+        }
+        else{
+        std::cout<< a[i]; 
+        std::cout<< "," ;  
+        }
+    }
+    std::cout<<"]"<<std::endl;
+}
+
+int main(){
+std::vector <int> pole={1,2,3};
+print(pole);
+//std::cout<<power_digit_sum(1234)<<std::endl;
+//std::cout<<"biggest(-10, 10)"<<std::endl;
+//std::cout<<biggest(-10, 10)<<std::endl;
+//std::cout<<pocet_p_d(2023)<<std::endl;
+}
+
 
 // Implementujte funkci ‹power_digit_sum›, která vrátí „speciální“
 // ciferný součet čísla ‹number›, který se od běžného ciferného
@@ -163,10 +186,4 @@ int pocet_p_d(int year){
     }
     return vysledek;
     
-}
-int main(){
-//std::cout<<power_digit_sum(1234)<<std::endl;
-//std::cout<<"biggest(-10, 10)"<<std::endl;
-//std::cout<<biggest(-10, 10)<<std::endl;
-std::cout<<pocet_p_d(2023)<<std::endl;
 }
