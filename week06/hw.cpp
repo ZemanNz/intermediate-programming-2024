@@ -33,7 +33,7 @@ void print (std::vector<int> a){
 // + 1³ + 2⁴ = 36⟧.
 int an(int a, int n){
     int res=1;
-    for(int i; i<n; i++ ){
+    for(int i=0 ; i<n; i++ ){
         res *= a;
     }
     return res;
@@ -41,7 +41,7 @@ int an(int a, int n){
 int power_digit_sum(int number){
     int number_z= number;
     int delka=0;
-    int sum;
+    int sum= 0;
     while (number_z > 0) {
         number_z /= 7; 
         delka++;
@@ -49,14 +49,13 @@ int power_digit_sum(int number){
     int stav= delka;
     while (number > 0) {
         int cislo= (number % 7);
-        sum += an(cislo, stav);
-        //std::cout<<sum<<std::endl;
+        sum = (sum + an(cislo, stav));
         stav--;
         number /= 7; 
     }
-
     return sum;
 }
+
 
 
 // Napište funkci, která najde celé číslo ‹x›, které leží mezi
