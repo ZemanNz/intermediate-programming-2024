@@ -17,14 +17,7 @@ void print (std::vector<int> a){
     std::cout<<"]"<<std::endl;
 }
 
-int main(){
-std::vector <int> pole={1,2,3};
-print(pole);
-//std::cout<<power_digit_sum(1234)<<std::endl;
-//std::cout<<"biggest(-10, 10)"<<std::endl;
-//std::cout<<biggest(-10, 10)<<std::endl;
-//std::cout<<pocet_p_d(2023)<<std::endl;
-}
+
 
 
 // Implementujte funkci ‹power_digit_sum›, která vrátí „speciální“
@@ -38,38 +31,31 @@ print(pole);
 // ⟦(3412)₇⟧ – skutečně, ⟦3⋅7³ + 4⋅7² + 1⋅7¹ + 2⋅7⁰ = 1029 + 196 + 7
 // + 2 = 1234⟧.  Proto ‹power_digit_sum(1234)› získáme jako ⟦3¹ + 4²
 // + 1³ + 2⁴ = 36⟧.
-int power_digit_sum(int number) {
-    int soucet = 0;
-    int position = 1; // Pozici začneme od 1 (první cifra zleva má pozici 1).
-    int delka;
+int an(int a, int n){
+    int res=1;
+    for(int i; i<n; i++ ){
+        res *= a;
+    }
+    return res;
+}
+int power_digit_sum(int number){
     int number_z= number;
-    // Projdeme všechny cifry v sedmičkové soustavě, dokud je číslo větší než 0.
+    int delka=0;
+    int sum;
     while (number_z > 0) {
         number_z /= 7; 
         delka++;
     }
-    std::vector<int> zbytky(delka, 0);
+    int stav= delka;
     while (number > 0) {
-        zbytky[delka-position] = number % 7;
+        int cislo= (number % 7);
+        sum += an(cislo, stav);
+        //std::cout<<sum<<std::endl;
+        stav--;
         number /= 7; 
-        position++;
     }
-    for (int i = 0; i < delka; i++) {
-        std::cout << "zbytek[" << i << "] = " << zbytky[i] << std::endl;
-    }
-    ////////////////////////////
-    int opak=1;
-    for(int i=0; i < delka; i++){
-            int cast=1;
-            for(int f=0; f<opak; f++){
-                cast = (cast * zbytky[i]);
-            }
-            std::cout<<"cast"<<std::endl;
-            std::cout<<cast<<std::endl;
-            soucet = (soucet+ cast);   
-            opak++;
-    } 
-    return soucet;
+
+    return sum;
 }
 
 
@@ -185,5 +171,14 @@ int pocet_p_d(int year){
         }
     }
     return vysledek;
-    
 }
+int main(){
+    //std::vector <int> pole={5,6};
+    //std::cout<< an(3,2)<< std::endl;
+    std::cout<<power_digit_sum(1234)<<std::endl;
+    //std::cout<<"biggest(-10, 10)"<<std::endl;
+    //std::cout<<biggest(-10, 10)<<std::endl;
+    //std::cout<<pocet_p_d(2023)<<std::endl;
+}
+    
+
