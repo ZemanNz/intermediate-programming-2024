@@ -18,6 +18,21 @@ void print (std::vector<int> a){
 }
 
 
+std::vector<int> v = {1, 2, 3, 4};
+
+// Výstup: result = {16, 9, 4, 1}
+void reverse_and_square (std::vector<int> a){
+
+    std::vector<int> result(a.size());
+    for(std::size_t i=0; i< a.size(); i++){
+        int s= ( a[i] * a[i]);
+        result[a.size()-i-1] = s;
+    }
+    print(result);
+}
+
+
+
 
 
 // Implementujte funkci ‹power_digit_sum›, která vrátí „speciální“
@@ -172,9 +187,10 @@ int pocet_p_d(int year){
     return vysledek;
 }
 int main(){
-    //std::vector <int> pole={5,6};
+    reverse_and_square(v);
+    std::vector <int> pole={5,6};
     //std::cout<< an(3,2)<< std::endl;
-    std::cout<<power_digit_sum(1234)<<std::endl;
+    //std::cout<<power_digit_sum(1234)<<std::endl;
     //std::cout<<"biggest(-10, 10)"<<std::endl;
     //std::cout<<biggest(-10, 10)<<std::endl;
     //std::cout<<pocet_p_d(2023)<<std::endl;
