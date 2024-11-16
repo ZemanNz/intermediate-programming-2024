@@ -3,6 +3,27 @@
 #include <vector>
 // TODO: doplťe co potřebujete
 
+int ctrnactka(double okolikvic, int procent){
+    double x= 1;
+    double y= (x + okolikvic);
+    double vysledek;
+    vysledek= (procent * (x/y));
+    std::cout<<"(x/y) ";
+    std::cout<<(x/y)<<std::endl;
+
+    return vysledek;
+}
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////
 void print (std::vector<int> a){
     std::cout<<"[";
     for(std::size_t i=0; i< a.size(); i++){
@@ -187,8 +208,10 @@ int pocet_p_d(int year){
     return vysledek;
 }
 int main(){
-    reverse_and_square(v);
-    std::vector <int> pole={5,6};
+    //reverse_and_square(v);
+    //std::vector <int> pole={5,6};
+    std::cout<< ctrnactka(0.25, 20)<< std::endl;
+    
     //std::cout<< an(3,2)<< std::endl;
     //std::cout<<power_digit_sum(1234)<<std::endl;
     //std::cout<<"biggest(-10, 10)"<<std::endl;
