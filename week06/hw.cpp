@@ -13,6 +13,17 @@ int ctrnactka(double okolikvic, int procent){
 
     return vysledek;
 }
+//cena - zadejte celkovou cenu, merunky - vaha merunek, broskve - vaha broskvi, /////////  (cena, merunky, broskve)
+int merunky(float cena, float merunky, float broskve){
+    float cena_merunek= (cena + 2*broskve) / (broskve + merunky);
+    float cena_broskvi = cena_merunek - 2;
+    float x= cena_merunek * merunky;
+    std::cout<<"Cena Merunek:: "<< std::endl;
+    std::cout<<cena_merunek<< std::endl;
+    std::cout<<"Cena Broskvi:: "<< std::endl;
+    std::cout<<cena_broskvi<< std::endl;
+    return x;
+}
 
 
 
@@ -210,8 +221,8 @@ int pocet_p_d(int year){
 int main(){
     //reverse_and_square(v);
     //std::vector <int> pole={5,6};
-    std::cout<< ctrnactka(0.25, 20)<< std::endl;
-    
+    //std::cout<< ctrnactka(0.25, 20)<< std::endl;
+    //std::cout<< merunky(100, 3, 1)<< std::endl;
     //std::cout<< an(3,2)<< std::endl;
     //std::cout<<power_digit_sum(1234)<<std::endl;
     //std::cout<<"biggest(-10, 10)"<<std::endl;
