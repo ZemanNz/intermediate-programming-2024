@@ -21,8 +21,39 @@ void print(std::vector<int> data) {
  * vzestupně seřazeného seznamu
  * */
 std::vector<int> merge(std::vector<int> a, std::vector<int> b) {
-    return {};
+    std::vector<int> vysledek;
+    std::size_t aa = 0;
+    std::size_t bb = 0;
+    while((a.size()>aa) && (b.size()>bb)){
+        if(a[aa]> b[bb]){
+            vysledek.push_back(b[bb]);
+            bb++;
+        }
+        if(a[aa]< b[bb]){
+            vysledek.push_back(a[aa]);
+            aa++;
+        }
+        if(a[aa]== b[bb]){
+            vysledek.push_back(a[aa]);
+            aa++;
+        }
+        if(aa==a.size()){
+            int zbytek= (b.size() - bb);
+            for(int i= 0; i < zbytek; i++){
+                vysledek.push_back(b[b.size()-(zbytek-i)]);
+            }
+        }
+        if(bb==b.size()){
+            int zbytek= (a.size() - aa);
+            for(int i= 0; i < zbytek; i++){
+                vysledek.push_back(a[a.size()-(zbytek-i)]);
+            }
+        }
+        
+    }
+    return vysledek;
 }
+
 
 /* Napište funkci histogram, která dostane pole čísel z rozsahu [0-100), a vrátí nové pole takové, že
  * na i-té pozici nového seznamu bude uložen počet výskytů čísla i ve vstupním poli.
@@ -90,8 +121,8 @@ std::vector<bool> cellular_step(std::vector<bool> input) {
 
 int main() {
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 5, 6 };
-    std::vector<int> asc1 = { 0, 2, 4, 7, 8 };
-    std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9 };
+    std::vector<int> asc1 = { 0, 2, 4, 7, 8, 13,14 };
+    std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9, 11, 12 };
     std::vector<int> vec2 = { 43, 93, 76, 49, 11,  7, 70, 20, 43, 36,
                               73, 47, 77, 48, 91, 46, 31, 78, 63, 61,
                                7, 88, 42, 62, 84, 29, 61, 28, 18, 41,
