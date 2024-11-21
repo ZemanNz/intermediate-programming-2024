@@ -59,7 +59,17 @@ std::vector<int> merge(std::vector<int> a, std::vector<int> b) {
  * na i-té pozici nového seznamu bude uložen počet výskytů čísla i ve vstupním poli.
  */
 std::vector<int> histogram(std::vector<int> data) {
-    return {};
+    std::vector<int> vysledek;
+    for(int i= 0; i< 100; i++){
+        int pocet= 0;
+        for(std::size_t a= 0; a< data.size(); a++){
+            if(i == data[a]){
+                pocet++;
+            }
+        } 
+      vysledek.push_back(pocet);  
+    }
+    return vysledek;
 }
 
 // Napište (čistou) funkci, která simuluje jeden krok výpočtu
