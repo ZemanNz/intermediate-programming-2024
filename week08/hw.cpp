@@ -1,6 +1,19 @@
 #include <iostream>
 #include <vector>
 
+void print_b(std::vector<bool> data) {
+    if (data.size() == 0) {
+        std::cout << "[]";
+        return;
+    }
+
+    std::cout << "[ ";
+    for (std::size_t i = 0; i < data.size() - 1; i++) {
+        std::cout << data[i] << ", ";
+    }
+
+    std::cout << data.back() << " ]";
+}
 void print(std::vector<int> data) {
     if (data.size() == 0) {
         std::cout << "[]";
@@ -14,7 +27,6 @@ void print(std::vector<int> data) {
 
     std::cout << data.back() << " ]";
 }
-
 
 /*
  * Napište funkci merge, která vezme dvě vzestupně seřazená pole a spojí je do jednoho
@@ -126,10 +138,37 @@ std::vector<int> histogram(std::vector<int> data) {
 // pravidel na ‹state›.
 
 std::vector<bool> cellular_step(std::vector<bool> input) {
-    return input;
+    std::vector<bool> mez;
+    std::vector<bool> vysledek;
+    mez.push_back(0);
+    for(std::size_t i=0 ; i < input.size(); i++){
+        mez.push_back(input[i]);
+    }
+    mez.push_back(0);
+    for(std::size_t i=1 ; i <= input.size(); i++){
+        bool minuly= mez[(i-1)];
+        bool soucastny= mez[(i)];
+        bool budouci= mez[(i+1)];
+        bool novy;
+        if(minuly==0 && soucastny== 0 && budouci==1){
+            novy=1;
+        }
+        else if(minuly==1 && soucastny== 1 && budouci==0){
+            novy=0;
+        }
+        else if(minuly==1 && soucastny== 0 && budouci==0){
+            novy=1;
+        }
+        else{
+            novy= mez[i];
+        }
+        vysledek.push_back(novy); 
+    }
+    return vysledek;
 }
 
 int main() {
+    std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 5, 6 };
     std::vector<int> asc1 = { 0, 2, 4, 7, 8, 13,14 };
     std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9, 11, 12 };
@@ -163,11 +202,15 @@ int main() {
                               63, 28,  4, 64, 49, 12, 87, 41, 38, 15,
                                1, 98, 10, 67,  2, 76, 63, 48, 32, 20,
                                3, 23, 41, 14, 67, 98, 95, 66, 86, 90 };
-    std::cout << "merge(asc1, asc2): ";
-    print(merge(asc1, asc2));
-    std::cout << std::endl;
+   std::cout << "merge(asc1, asc2): ";
+   print(merge(asc1, asc2));
+   std::cout << std::endl;
 
-    std::cout << "histogram(vec2): ";
-    print(histogram(vec2));
+   std::cout << "histogram(vec2): ";
+   print(histogram(vec2));
+   std::cout << std::endl;
+
+    std::cout << "to posledni (jednicky):";
+    print_b(cellular_step(jednicky));
     std::cout << std::endl;
 }
