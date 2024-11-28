@@ -221,9 +221,48 @@ std::vector<int> vetsi_nez(std::vector<int> data, int min) {
 }
 
 
+//////////////////////
+std::vector<int> serad(std::vector<int> data, int min) {
+    std::vector<int> vysledek;
+    std::size_t i=0;
+    while (data[i] < min){
+        vysledek.push_back(data[i]);
+        i++;
+    }
+    vysledek.push_back(min);
+    while (data.size() > i){
+        vysledek.push_back(data[i]);
+        i++;
+    }
+    return vysledek;
+}
+
+/*
+std::vector<int> nevim(std::vector<int> data, int min) {
+    for(std::size_t i=0; i < data.size(); i++){
+        if(data[i] < min){
+            data[i]= 2;
+        }
+    }
+}
+*///bez pushback a bez noveveho vektoru
+
+
+///////////////////////////
+
+bool nevim_nevim(std::vector<int> data) {
+    for(std::size_t i=0; i < (data.size() /2); i++){
+        if((data[i]) != ((data[data.size() - i-1]))){
+            return false;
+        }
+    }
+   return true; 
+}
+
 
 int main() {
     std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
+    std::vector<int> zkouzka = {9,7};
     std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11 };
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 5, 6 };
     std::vector<int> asc1 = { 0, 2, 4, 7, 8,  20};
@@ -274,6 +313,13 @@ int main() {
    print(vetsi_nez(vec1, 4));
    std::cout << std::endl;
 
+   std::cout << "serad(vec2): ";
+   print(serad(vec1, 5));
+   std::cout << std::endl;
+
+    std::cout << "nevimnevim ():";
+    std::cout<<(nevim_nevim(zkouzka))<<std::endl;
+    std::cout << std::endl;   
 /*
   std::cout << "moje(ehm): ";
    print(serad_vzestupne(ehm));
