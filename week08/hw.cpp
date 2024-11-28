@@ -27,6 +27,35 @@ void print(std::vector<int> data) {
 
     std::cout << data.back() << " ]";
 }
+/*
+////////////////////////////moje///////////////////////
+std::vector<int> serad_vzestupne(std::vector<int> a) {
+    std::vector<int> vysledek;
+    std::vector<int> mez= a;
+    int nejmensi;
+    int c;
+    for(std::size_t b= 0; b< a.size(); b++){
+        for(std::size_t i= 0; i< mez.size(); i++){
+                if(nejmensi > mez[i]){
+                    nejmensi= mez[i];
+                    c= i;
+                }
+        }
+        vysledek.push_back(nejmensi);
+        int o = mez.size();
+        for(int i= 0; i< o; i++){
+
+            if(mez[i]== mez[c]){
+
+            }
+            else{
+            mez[i]= (mez[i]);
+            }
+        }
+    }
+    return vysledek;
+}*/
+////////////////////////////moje///////////////////////
 
 /*
  * Napište funkci merge, která vezme dvě vzestupně seřazená pole a spojí je do jednoho
@@ -37,18 +66,18 @@ std::vector<int> merge(std::vector<int> a, std::vector<int> b) {
     std::size_t aa = 0;
     std::size_t bb = 0;
     while((a.size()>aa) && (b.size()>bb)){
-        if(a[aa]> b[bb]){
+        if(a[aa]>= b[bb]){
             vysledek.push_back(b[bb]);
             bb++;
         }
         if(a[aa]< b[bb]){
             vysledek.push_back(a[aa]);
             aa++;
-        }
+        }/*
         if(a[aa]== b[bb]){
             vysledek.push_back(a[aa]);
             aa++;
-        }
+        }*/
         if(aa==a.size()){
             int zbytek= (b.size() - bb);
             for(int i= 0; i < zbytek; i++){
@@ -69,7 +98,7 @@ std::vector<int> merge(std::vector<int> a, std::vector<int> b) {
 
 /* Napište funkci histogram, která dostane pole čísel z rozsahu [0-100), a vrátí nové pole takové, že
  * na i-té pozici nového seznamu bude uložen počet výskytů čísla i ve vstupním poli.
- */
+ *//*
 std::vector<int> histogram(std::vector<int> data) {
     std::vector<int> vysledek;
     for(int i= 0; i< 100; i++){
@@ -81,6 +110,18 @@ std::vector<int> histogram(std::vector<int> data) {
         } 
       vysledek.push_back(pocet);  
     }
+    return vysledek;
+}
+
+*/
+
+std::vector<int> histogram(std::vector<int> data) {
+    std::vector<int> vysledek;
+    vysledek.resize(100);
+    for(std::size_t a= 0; a< data.size(); a++){
+        int hodnota= data[a];
+        vysledek[(hodnota)]++;
+    } 
     return vysledek;
 }
 
@@ -141,9 +182,7 @@ std::vector<bool> cellular_step(std::vector<bool> input) {
     std::vector<bool> mez;
     std::vector<bool> vysledek;
     mez.push_back(0);
-    for(std::size_t i=0 ; i < input.size(); i++){
-        mez.push_back(input[i]);
-    }
+    mez= input;
     mez.push_back(0);
     for(std::size_t i=1 ; i <= input.size(); i++){
         bool minuly= mez[(i-1)];
@@ -167,10 +206,27 @@ std::vector<bool> cellular_step(std::vector<bool> input) {
     return vysledek;
 }
 
+
+
+
+//////////////////////////////////////////////////ú
+std::vector<int> vetsi_nez(std::vector<int> data, int min) {
+    std::vector<int> vysledek;
+    for(std::size_t i= 0; i < data.size(); i++){
+        if(data[i] > min){
+            vysledek.push_back(data[i]);
+        }
+    }
+    return vysledek;
+}
+
+
+
 int main() {
     std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
+    std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11 };
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 5, 6 };
-    std::vector<int> asc1 = { 0, 2, 4, 7, 8, 13,14 };
+    std::vector<int> asc1 = { 0, 2, 4, 7, 8,  20};
     std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9, 11, 12 };
     std::vector<int> vec2 = { 43, 93, 76, 49, 11,  7, 70, 20, 43, 36,
                               73, 47, 77, 48, 91, 46, 31, 78, 63, 61,
@@ -213,4 +269,15 @@ int main() {
     std::cout << "to posledni (jednicky):";
     print_b(cellular_step(jednicky));
     std::cout << std::endl;
+
+   std::cout << "vetsi_nez(vec2): ";
+   print(vetsi_nez(vec1, 4));
+   std::cout << std::endl;
+
+/*
+  std::cout << "moje(ehm): ";
+   print(serad_vzestupne(ehm));
+   std::cout << std::endl;
+*/
+    
 }
