@@ -224,27 +224,51 @@ std::vector<int> vetsi_nez(std::vector<int> data, int min) {
 //////////////////////
 std::vector<int> serad(std::vector<int> data, int min) {
     std::vector<int> vysledek;
-    std::size_t i=0;
-    while (data[i] < min){
-        vysledek.push_back(data[i]);
-        i++;
+    for(std::size_t i= 0; i< data.size(); i++){
+        if(data[i] < min){
+            vysledek.push_back(data[i]);
+        }
     }
     vysledek.push_back(min);
-    while (data.size() > i){
-        vysledek.push_back(data[i]);
-        i++;
+    for(std::size_t i= 0; i< data.size(); i++){
+        if(data[i] > min){
+            vysledek.push_back(data[i]);
+        }
     }
+    
     return vysledek;
 }
 
-/*
-std::vector<int> nevim(std::vector<int> data, int min) {
-    for(std::size_t i=0; i < data.size(); i++){
-        if(data[i] < min){
-            data[i]= 2;
+
+
+
+std::vector<int> serad2(std::vector<int> data, int min) {
+    for(std::size_t s= 0; s< (data.size()); s++){
+        for(std::size_t i= 0; i< (data.size()-1); i++){
+            if(data[i] > data[i+1]){
+                int a= data[i];
+                int b= data[i+1];
+                data[i]= b;
+                data[i+1]= a;
+            }
         }
     }
+    for(std::size_t n= 0; n < (data.size()); n++){
+        if(data[n] >= min){
+            int last= min;
+            data.resize(data.size()+ 1);
+            for(std::size_t i= (n) ; i <= (data.size()+1); i++){
+                int last_2= data[i];
+                data[i]= last;
+                last= last_2;
+            }
+            return data;
+        }
+    }
+    return data;
 }
+/*
+
 *///bez pushback a bez noveveho vektoru
 
 
@@ -264,7 +288,7 @@ int main() {
     std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
     std::vector<int> zkouzka = {9,7};
     std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11 };
-    std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 5, 6 };
+    std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 6 };//////////////
     std::vector<int> asc1 = { 0, 2, 4, 7, 8,  20};
     std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9, 11, 12 };
     std::vector<int> vec2 = { 43, 93, 76, 49, 11,  7, 70, 20, 43, 36,
@@ -312,9 +336,13 @@ int main() {
    std::cout << "vetsi_nez(vec2): ";
    print(vetsi_nez(vec1, 4));
    std::cout << std::endl;
-
-   std::cout << "serad(vec2): ";
+/*
+   std::cout << "serad(vec1): ";
    print(serad(vec1, 5));
+   std::cout << std::endl;
+*/
+   std::cout << "serad2(vec1): ";
+   print(serad2(vec1, 5));
    std::cout << std::endl;
 
     std::cout << "nevimnevim ():";
