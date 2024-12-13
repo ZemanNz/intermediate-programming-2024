@@ -281,10 +281,64 @@ bool nevim_nevim(std::vector<int> data) {
         }
     }
    return true; 
+}///////////////////////////////////////////////////
+std::vector<int> sum(std::vector<std::vector<int>> vec) {
+    // {{0, 1}, {2}, {}} -> {1, 2, 0}
+    std::vector<int> vysledek;
+    for(std::size_t i= 0; i< vec.size(); i++){
+        int soucet=0;
+        for(std::size_t o= 0; o< vec[i].size(); o++){
+            soucet += vec[i][o];
+        }
+        vysledek.push_back(soucet);
+    }
+    return vysledek;
+
 }
 
+std::vector<int> product(std::vector<std::vector<int>> vec) {
+    // {{0, 1}, {2}, {}} -> {0, 2, 1}
+    std::vector<int> vysledek;
+    for(std::size_t i=0; i<vec.size(); i++){
+        int nasobek=1;
+        for(std::size_t o= 0; o< vec[i].size() ;o++){
+            nasobek *= vec[i][o];
+        }
+        vysledek.push_back(nasobek);
+    }
+    return vysledek;
+}
+/*
+std::vector<int> concat(std::vector<std::vector<int>> vec) {
+    // {{0, 1}, {2}, {}} -> {0, 1, 2}
+}
 
+std::vector<std::vector<int>> transpose(std::vector<std::vector<int>> vec) {
+    // {
+    //   {0, 1, 2},
+    //   {3, 4, 5},
+    //   {6, 7, 8},
+    // } -> {
+    //   {0, 3, 6},
+    //   {1, 4, 7},
+    //   {2, 5, 8},
+    // }
+}
+
+std::vector<std::vector<int>> cartesian_product(
+    std::vector<int> a,
+    std::vector<int> b) {
+    // {0, 1} {2, 4} -> {{0, 2}, {0, 4}, {1, 2}, {1, 4}}
+    // {0, 1} {} -> {} 
+}
+
+*/
 int main() {
+    std::vector<std::vector<int>> vec9 = {
+        {0, 1},
+        {2},
+        {}
+    };
     std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
     std::vector<int> zkouzka = {9,7};
     std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11 };
@@ -353,5 +407,15 @@ int main() {
    print(serad_vzestupne(ehm));
    std::cout << std::endl;
 */
+
+   std::cout << "sum(vec9): ";
+   print(sum(vec9));
+   std::cout << std::endl;
     
-}
+
+   std::cout << "product(vec9): ";
+   print(product(vec9));
+   std::cout << std::endl;
+
+
+   }
