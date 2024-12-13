@@ -308,7 +308,7 @@ std::vector<int> product(std::vector<std::vector<int>> vec) {
     }
     return vysledek;
 }
-/*
+/* 
 std::vector<int> concat(std::vector<std::vector<int>> vec) {
     // {{0, 1}, {2}, {}} -> {0, 1, 2}
 }
