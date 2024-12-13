@@ -27,6 +27,15 @@ void print(std::vector<int> data) {
 
     std::cout << data.back() << " ]";
 }
+void print2DVector(const std::vector<std::vector<int>>& vec) {
+    std::cout << std::endl;
+    for (const auto& row : vec) {
+        for (const auto& elem : row) {
+            std::cout << elem << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 /*
 ////////////////////////////moje///////////////////////
 std::vector<int> serad_vzestupne(std::vector<int> a) {
@@ -308,9 +317,16 @@ std::vector<int> product(std::vector<std::vector<int>> vec) {
     }
     return vysledek;
 }
-/* 
+ 
 std::vector<int> concat(std::vector<std::vector<int>> vec) {
     // {{0, 1}, {2}, {}} -> {0, 1, 2}
+    std::vector<int> vysledek;
+    for(std::size_t i= 0; i< vec.size(); i++){
+        for(std::size_t o = 0; o< vec[i].size(); o++){
+            vysledek.push_back(vec[i][o]);
+        }
+    }
+    return vysledek;
 }
 
 std::vector<std::vector<int>> transpose(std::vector<std::vector<int>> vec) {
@@ -323,17 +339,38 @@ std::vector<std::vector<int>> transpose(std::vector<std::vector<int>> vec) {
     //   {1, 4, 7},
     //   {2, 5, 8},
     // }
+    std::vector<std::vector<int>> vysledek;
+    vysledek.resize(vec.size()); // Nastav počet řádků
+    for (auto& row : vysledek) {
+        row.resize(vec[0].size()); // Nastav počet sloupců pro každý řádek
+    }
+    for(std::size_t i=0 ; i< vec.size(); i++){
+        for(std::size_t o=0 ; o< vec[i].size(); o++){
+            vysledek[o][i] = vec[i][o];
+        }
+    }
+    return vysledek;
 }
 
-std::vector<std::vector<int>> cartesian_product(
-    std::vector<int> a,
-    std::vector<int> b) {
+std::vector<std::vector<int>> cartesian_product(std::vector<int> a, std::vector<int> b) {
     // {0, 1} {2, 4} -> {{0, 2}, {0, 4}, {1, 2}, {1, 4}}
     // {0, 1} {} -> {} 
+    std::vector<std::vector<int>> vysledek;
+    for(std::size_t i=0; i< a.size(); i++){
+        for(std::size_t o=0; o< b.size(); o++){
+            vysledek.push_back({a[i],b[o]});
+        }
+    }
+    return vysledek;
 }
 
-*/
+
 int main() {
+    std::vector<std::vector<int>> vec8 = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
     std::vector<std::vector<int>> vec9 = {
         {0, 1},
         {2},
@@ -341,6 +378,8 @@ int main() {
     };
     std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
     std::vector<int> zkouzka = {9,7};
+    std::vector<int> vec7 = {0,1};
+    std::vector<int> vec6 = {2,4};
     std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11 };
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 6 };//////////////
     std::vector<int> asc1 = { 0, 2, 4, 7, 8,  20};
@@ -417,5 +456,15 @@ int main() {
    print(product(vec9));
    std::cout << std::endl;
 
+   std::cout << "concat(vec9): ";
+   print(concat(vec9));
+   std::cout << std::endl;
 
+   std::cout << "transpoze(vec8): ";
+   print2DVector(transpose(vec8));
+   std::cout << std::endl; 
+
+   std::cout << "cartesian_product(vec7): ";
+   print2DVector(cartesian_product(vec7, vec6));
+   std::cout << std::endl; 
    }
