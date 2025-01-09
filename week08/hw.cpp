@@ -364,6 +364,48 @@ std::vector<std::vector<int>> cartesian_product(std::vector<int> a, std::vector<
     return vysledek;
 }
 
+std::vector<std::vector<int>> sum_2(std::vector<std::vector<int>> vec_1, std::vector<std::vector<int>> vec_2) {
+    std::vector<std::vector<int>> vysledek;
+    for(std::size_t i=0; (i< vec_1.size()) || (i< vec_2.size()) ; i++){
+        std::vector<int> mezi;
+        if(vec_1[i].size() > vec_2[i].size()){
+           for(std::size_t o=0;(o< vec_2[i].size()) ; o++){
+                mezi.push_back((vec_1[i][o]) + (vec_2[i][o]));  
+            }
+           for(std::size_t p= vec_2[i].size();(p< vec_1[i].size()) ; p++){
+                    mezi.push_back(vec_1[i][p]);
+            }
+            vysledek.push_back({mezi}); 
+        }else{
+            for(std::size_t o=0;(o< vec_1[i].size()) ; o++){
+                mezi.push_back((vec_1[i][o]) + (vec_2[i][o]));
+           }
+           for(std::size_t p= vec_1[i].size(); (p< vec_2[i].size()) ; p++){
+                mezi.push_back(vec_2[i][p]);
+            }
+            vysledek.push_back({mezi});
+        }
+    }
+    return vysledek;
+}
+std::vector<std::vector<int>> split(std::vector<int> r, int n) {
+    std::vector<std::vector<int>> vysledek;  
+    int x= r.size()%n;
+    std::size_t w= 0;
+    for(std::size_t i= 0; i < (((r.size()-x)/n)+1) ; i++){
+        std::vector<int> mezi;
+        for(int o= 0; o < n ; o++){
+            if(w >= r.size()){
+                vysledek.push_back({mezi});
+                return vysledek;
+            }
+            mezi.push_back(r[w]);
+            w++;
+        }
+        vysledek.push_back({mezi});
+    }
+    return vysledek;
+}
 
 int main() {
     std::vector<std::vector<int>> vec8 = {
@@ -372,15 +414,15 @@ int main() {
         {7, 8, 9}
     };
     std::vector<std::vector<int>> vec9 = {
-        {0, 1},
+        {5, 1},
         {2},
-        {}
+        {3}
     };
     std::vector<bool> jednicky = { 0, 1, 1, 0, 0, 1};
     std::vector<int> zkouzka = {9,7};
     std::vector<int> vec7 = {0,1};
     std::vector<int> vec6 = {2,4};
-    std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11 };
+    std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11, 2, 3, 9 };
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 6 };//////////////
     std::vector<int> asc1 = { 0, 2, 4, 7, 8,  20};
     std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9, 11, 12 };
@@ -466,5 +508,13 @@ int main() {
 
    std::cout << "cartesian_product(vec7): ";
    print2DVector(cartesian_product(vec7, vec6));
+   std::cout << std::endl; 
+
+   std::cout << "sum_2(?): ";
+   print2DVector(sum_2(vec8, vec9));
+   std::cout << std::endl; 
+
+   std::cout << "split(?): ";
+   print2DVector(split(ehm, 3));
    std::cout << std::endl; 
    }
