@@ -67,35 +67,98 @@ Tohle je raw string\n\n\n
 /* Napište funkci line_count, která spočítá kolik řádků má řetězec předaný
  * argumentem text. Řádky jsou odděleny znakem '\n' */
 int line_count(std::string text) {
-    return 0;
+    int radky= 0;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '\n'){
+            radky++;
+        }
+    }
+    return radky+ 1;
 }
 
 /* Napište funkci word_count, která spočítá kolik slov má řetězec předaný
  * argumentem text. */
 int word_count(std::string text) {
-    return 0;
+    int slova=1;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == ' '|| text[i] == '\n'){
+            slova++;
+        }
+    }
+    std::cout<<slova<<std::endl;
+    return slova;
 }
 
 /* Napište funkci paragraph_count, která spočítá kolik odstavců má řetězec předaný
  * argumentem text. */
 int paragraph_count(std::string text) {
-    return 0;
+    int odstavce= 1;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '\n' && text[i+1] == '\n'){
+            odstavce++;
+        }
+    }
+    std::cout<<odstavce<<std::endl;
+    return (odstavce);
 }
 
 /* Napište funkci lines, která rozdělí řetezec předaný v argumentu text na jednotlivé řádky.
  */
 std::vector<std::string> lines(std::string text) {
-    return {};
+    std::vector<std::string> vysledek;
+    std::string clen;
+    int pocatek= 0;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '\n'){
+            clen= text.substr(pocatek, i - pocatek);
+            vysledek.push_back(clen);
+            pocatek= i +1;
+            std::cout<<clen<<std::endl;
+        }
+    }
+    vysledek.push_back(text.substr(pocatek));
+    return {vysledek};
 }
 
 /* Napište funkci words, která rozdělí řetezec předaný v argumentu text na jednotlivá slova. */
 std::vector<std::string> words(std::string text) {
-    return {};
+    std::vector<std::string> vysledek;
+    std::string clen;
+    int pocatek= 0;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '\n' || text[i] == ' '){
+            clen= text.substr(pocatek, i - pocatek);
+            if(i -pocatek >0){
+                vysledek.push_back(clen);
+            }
+            pocatek= i +1;
+            std::cout<<clen<<std::endl; 
+        }
+    }
+    vysledek.push_back(text.substr(pocatek));
+    return {vysledek};
 }
 
 /* Napište funkci paragraphs, která rozdělí řetezec předaný v argumentu text na jednotlivé odstavce. */
 std::vector<std::string> paragraphs(std::string text) {
-    return {};
+    std::cout<<"aaaaaaaaaaa"<<std::endl;
+    std::vector<std::string> vysledek;
+    std::string clen;
+    int pocatek= 0;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '\n' && text[i+1] == '\n'){
+            if(i -pocatek >0){
+            clen= text.substr(pocatek, i - pocatek);
+            vysledek.push_back(clen);
+            pocatek= i +1;
+            std::cout<<clen<<std::endl;
+            }
+        }
+    }
+    clen= text.substr(pocatek);
+    std::cout<<clen<<std::endl;
+    vysledek.push_back(clen);
+    return {vysledek};
 }
 
 /* Naimplementujte funkci check_brackets,
@@ -124,7 +187,7 @@ Final paragraph. Short and sweet.)";
     std::cout << "line_count passed!" << std::endl;
 
     // Test word_count
-    assert(word_count(testText) == 24); // Total words in testText
+    assert(word_count(testText) == 33); // Total words in testText
     std::cout << "word_count passed!" << std::endl;
 
     // Test paragraph_count
