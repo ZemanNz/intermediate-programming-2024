@@ -138,26 +138,49 @@ std::vector<std::string> words(std::string text) {
     vysledek.push_back(text.substr(pocatek));
     return {vysledek};
 }
-
+void printf(std::vector<std::string> data) {
+    for(std::size_t i=0; i < data.size(); i++){
+        std::string radek= data[i];
+        std::cout<< radek<<std::endl;
+    }
+}
 /* Napište funkci paragraphs, která rozdělí řetezec předaný v argumentu text na jednotlivé odstavce. */
 std::vector<std::string> paragraphs(std::string text) {
-    std::cout<<"aaaaaaaaaaa"<<std::endl;
     std::vector<std::string> vysledek;
     std::string clen;
     int pocatek= 0;
     for(size_t i=0; i< text.size(); i++){
         if(text[i] == '\n' && text[i+1] == '\n'){
-            if(i -pocatek >0){
-            clen= text.substr(pocatek, i - pocatek);
-            vysledek.push_back(clen);
-            pocatek= i +1;
-            std::cout<<clen<<std::endl;
-            }
+        clen= text.substr(pocatek, i  - pocatek);
+        i++;
+        pocatek= i +1;
+        vysledek.push_back(clen);
         }
     }
     clen= text.substr(pocatek);
-    std::cout<<clen<<std::endl;
     vysledek.push_back(clen);
+    printf(vysledek);
+    return {vysledek};
+}
+std::vector<std::string> paragraphs_lepsi(std::string text) {
+    std::vector<std::string> vysledek;
+    int pocatek= 0;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '\n' && text[i+1] == '\n'){
+            std::string clen = "";
+            for(int a= pocatek; a < (i); a++){
+                if(text[a] != '\n'){
+                    clen += (text[a]);
+                }
+            }
+            i++;
+            pocatek= i +1;
+            vysledek.push_back(clen);
+        }
+    }
+    std::string clen= text.substr(pocatek);
+    vysledek.push_back(clen);
+    printf(vysledek);
     return {vysledek};
 }
 
@@ -165,7 +188,12 @@ std::vector<std::string> paragraphs(std::string text) {
  * která zkontroluje jestli je text předaný v argumentu text validní
  * Text je validní pokud každá otevírací závorka '(' má náležitou uzavírací závorku ')' */
 bool check_brackets(std::string text) {
-    return false;
+    int otviraci= 0, zaviraci= 0;
+    for(size_t i=0; i< text.size(); i++){
+        if(text[i] == '(' ){otviraci++ ;}
+        if(text[i] == ')' ){zaviraci++ ;}
+    }
+    if(otviraci== zaviraci){return true;}else{return false;}
 }
 
 int main() {
