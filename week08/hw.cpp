@@ -302,9 +302,7 @@ std::vector<int> sum(std::vector<std::vector<int>> vec) {
         vysledek.push_back(soucet);
     }
     return vysledek;
-
 }
-
 std::vector<int> product(std::vector<std::vector<int>> vec) {
     // {{0, 1}, {2}, {}} -> {0, 2, 1}
     std::vector<int> vysledek;
@@ -422,7 +420,7 @@ int main() {
     std::vector<int> zkouzka = {9,7};
     std::vector<int> vec7 = {0,1};
     std::vector<int> vec6 = {2,4};
-    std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11, 2, 3, 9 };
+    std::vector<int> ehm = { 1, 9, 4, 8, 2, 3, 5, 6, 7, 11, 2, 3, 9 , 3};
     std::vector<int> vec1 = { 1, 9, 4, 8, 4, 0, 9, 2, 3, 6 };//////////////
     std::vector<int> asc1 = { 0, 2, 4, 7, 8,  20};
     std::vector<int> asc2 = { 1, 3, 5, 6, 7, 9, 11, 12 };
