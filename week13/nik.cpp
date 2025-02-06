@@ -30,10 +30,8 @@ bool LEAVE = false;
 
 std::set<std::string> employees_with_missing_records(std::vector<std::tuple<std::string, int, bool>> records) {
     std::set<std::string> vysledek;
-    //bool ehm= false;
     std::map<std::string, bool> zamestnanci;
     for(auto [id, time , stav] : records) {
-        zamestnanci.contains(id);
         if(stav != zamestnanci[id]){
             zamestnanci[id]= stav;
         }
