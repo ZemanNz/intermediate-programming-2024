@@ -2,9 +2,10 @@
 #include <vector>
 #include <map>
 #include <tuple>
+#include <set>
 
 void showcase_tuple() {
-    std::tuple<int, int> point_a = {0, 1};
+    std::tuple<int, int> point_a = {3, 2};
 
     {
         int x = std::get<0>(point_a);
@@ -34,9 +35,26 @@ void showcase_tuple() {
     std::cout << std::endl;
 }
 
+void showcase_set() {
+    std::set<int> a = {0, 1, 2, 2};
+
+    a.size();
+
+    a.insert(0);
+
+    a.contains(6);
+
+    std::set<std::string> b = { "Jana", "Petr", "Marek" };
+
+    for (std::string name: b) {
+        std::cout << name << std::endl;
+    }
+}
+
 void showcase_map() {
     std::map<int, int> map;
     map[0] = 5;
+    map[0] = 12;
     map[2] = 11;
 
     std::cout << map[0] << std::endl;
@@ -55,7 +73,9 @@ void showcase_map() {
 
     std::cout << std::endl;
 
-    std::map<std::string, int> phone_numbers = {{"Pepa", 456}, {"Adam", 123}};
+    std::map<std::string, int> phone_numbers = {
+        {"Pepa", 456},
+        {"Adam", 123}};
     std::cout << phone_numbers["Adam"] << std::endl;
 
     if (phone_numbers.contains("Petr")) {
@@ -74,7 +94,7 @@ void showcase_map() {
 }
 
 int main() {
-    showcase_tuple();
     showcase_map();
+    //showcase_map();
 }
 
