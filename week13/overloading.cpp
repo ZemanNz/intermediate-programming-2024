@@ -3,27 +3,40 @@
 #include <vector>
 
 int sum(int a, int b) {
-    return 0;
+    return a+b;
 }
 
 std::string sum(std::string a, std::string b) {
-    return "";
+    std::string c = a+ b;
+    return c;
 }
 
 int sum(std::vector<int> xs) {
-    return 0;
+    int vysledek= 0;
+    for(size_t i= 0; i < xs.size(); i++){
+        vysledek+=xs[i];
+    }
+    return vysledek;
 }
 
 std::string sum(std::vector<std::string> xs) {
-    return "";
+    std::string vysledek;
+    for(size_t i= 0; i < xs.size(); i++){
+        vysledek += xs[i];
+    }
+    return vysledek;
 }
 
 int mul(int a, int b) {
-    return 0;
+    return a*b;
 }
 
 std::string mul(int a, std::string b) {
-    return "";
+    std::string vysledek;
+    for(int i= 0; i < a; i++){
+        vysledek+= b;
+    }
+    return vysledek;
 }
 
 int main() {
