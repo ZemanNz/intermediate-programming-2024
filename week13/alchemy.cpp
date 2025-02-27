@@ -18,6 +18,7 @@ bool can_make(std::string goal, std::set<std::string> start, std::map<std::set<s
         return true;
     }
     int a = 1;
+    
     while (a>0){
         a=0;
         if(start.contains(goal)){
