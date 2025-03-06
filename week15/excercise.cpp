@@ -74,10 +74,16 @@ bool are_tridy_valid(School a){
     for(Class b : a.classes){
         for(auto[timetableslot, info] : b.timetable){
             auto[subject, room] = info;
+            /*if(rozvrh_mistnosti.contains(room)){
+                if(rozvrh_mistnosti[room].contains(timetableslot)){
+                    return false;
+                }
+                rozvrh_mistnosti[room].insert(timetableslot);*/
             rozvrh_mistnosti.insert({room, timetableslot});
         }
         
     }
+    //kontrolovat, jestli se v jedné místnosti nekoná výuka ve stejný čas
 }
 /*
  * 1) Každý student je v právě jedné třídě
