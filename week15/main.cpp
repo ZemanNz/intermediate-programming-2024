@@ -14,6 +14,7 @@ void previously() {
     std::map<std::string, int> slovnik = { { "jablka", 10 }, { "hrušky", 11 } };
 }
 
+
 void demo() {
     struct Book {
         std::string title;
