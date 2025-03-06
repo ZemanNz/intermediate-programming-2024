@@ -74,24 +74,37 @@ bool are_tridy_valid(School a){
     for(Class b : a.classes){
         for(auto[timetableslot, info] : b.timetable){
             auto[subject, room] = info;
-            /*if(rozvrh_mistnosti.contains(room)){
+            if(rozvrh_mistnosti.contains(room)){
                 if(rozvrh_mistnosti[room].contains(timetableslot)){
                     return false;
                 }
-                rozvrh_mistnosti[room].insert(timetableslot);*/
-            rozvrh_mistnosti.insert({room, timetableslot});
+                else{
+                    rozvrh_mistnosti[room].insert({timetableslot});
+                }
+            }
+            else {
+                rozvrh_mistnosti.insert({room, {timetableslot}});
+            }
+            
         }
         
     }
-    //kontrolovat, jestli se v jedné místnosti nekoná výuka ve stejný čas
+    return true;
 }
+
+
+
+
+
+
+
 /*
  * 1) Každý student je v právě jedné třídě
  * 2) V každé učebně probíhá maximálně jedna výuka současně
  * 3) Žádný vyučující neučí zaráz více věcí
  */
 bool is_valid(School school) {
-    if(are_students_valid(school) && ){
+    if(are_students_valid(school) && are_tridy_valid(school)){
         return true;
     }
     return false;
