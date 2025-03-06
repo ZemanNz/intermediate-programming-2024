@@ -54,13 +54,41 @@ struct School {
     auto operator<=>(const School&) const = default;
 };
 
+bool are_students_valid(School a){
+    std::set<Student> tridy;
+    for(Student b : a.students){
+        int q= 0;
+        for(Class ABC : a.classes){
+            if(ABC.students.contains(b)){
+                q++;
+            }
+        }
+        if(q!=1){
+            return false;
+        }
+    }
+    return true;
+}
+bool are_tridy_valid(School a){
+    std::map< Room , std::set<TimetableSlot> > rozvrh_mistnosti;
+    for(Class b : a.classes){
+        for(auto[timetableslot, info] : b.timetable){
+            auto[subject, room] = info;
+            rozvrh_mistnosti.insert({room, timetableslot});
+        }
+        
+    }
+}
 /*
  * 1) Každý student je v právě jedné třídě
  * 2) V každé učebně probíhá maximálně jedna výuka současně
  * 3) Žádný vyučující neučí zaráz více věcí
  */
 bool is_valid(School school) {
-    return true;
+    if(are_students_valid(school) && ){
+        return true;
+    }
+    return false;
 }
 
 void test_is_valid() {

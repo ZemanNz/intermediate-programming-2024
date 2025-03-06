@@ -34,7 +34,7 @@ void demo() {
         .publish_year = 2010,
     };
 
-    lotr.year = 2000;
+    lotr.publish_year = 2000;
 
     std::cout << mistborn.title << std::endl;
 
