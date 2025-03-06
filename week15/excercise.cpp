@@ -55,7 +55,6 @@ struct School {
 };
 
 bool are_students_valid(School a){
-    std::set<Student> tridy;
     for(Student b : a.students){
         int q= 0;
         for(Class ABC : a.classes){
@@ -91,8 +90,26 @@ bool are_tridy_valid(School a){
     }
     return true;
 }
-
-
+bool are_ucitele_valid(School a){
+        std::map< Teacher , std::set<TimetableSlot> > rozvrh_ucitele;
+        for(Class ABC : a.classes){
+            for(auto[timetableslot, info] : ABC.timetable){
+                auto[subject, room] = info;
+                    if(rozvrh_ucitele.contains(subject.teacher)){
+                        if(rozvrh_ucitele[subject.teacher].contains(timetableslot)){
+                            return false;
+                        }
+                        else{
+                            rozvrh_ucitele[subject.teacher].insert({timetableslot});
+                        }
+                    }
+                    else {
+                        rozvrh_ucitele.insert({subject.teacher, {timetableslot}});
+                    }
+            }
+        }
+    return true;
+}
 
 
 
@@ -104,7 +121,7 @@ bool are_tridy_valid(School a){
  * 3) Žádný vyučující neučí zaráz více věcí
  */
 bool is_valid(School school) {
-    if(are_students_valid(school) && are_tridy_valid(school)){
+    if(are_students_valid(school) && are_tridy_valid(school) && are_ucitele_valid(school)){
         return true;
     }
     return false;
