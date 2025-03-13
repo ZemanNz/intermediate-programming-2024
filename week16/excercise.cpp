@@ -11,14 +11,52 @@ struct Board {
 };
 
 void print_board(const Board& board) {
+    for(size_t a=0; a< board.height; a++){
+        for(size_t i= 0; i< board.width; i++){
+            if(board.cells[ (a * board.width +i)]){
+                std::cout << "#";
+            }
+            else{
+                std::cout << " ";
+            }
+        }
+        std::cout << std::endl;
+    }
+    
 }
-
+bool get_allive(const Board& board, std::size_t x, std::size_t y) {
+    if((x < 0) || (x >= board.width) || (y < 0) || (y >= board.height)) {
+        return false;
+    }
+    return board.cells[(y * board.width + x)];
+}
 int neighbour_count(const Board& board, std::size_t x, std::size_t y) {
-    return 0;
+    int count = 0;
+        if(get_allive(board, x-1, y-1) == true){count++;}
+        if(get_allive(board, x, y-1) == true){count++;}
+        if(get_allive(board, x+1, y-1) == true){count++;}
+        if(get_allive(board, x-1, y) == true){count++;}
+        if(get_allive(board, x+1, y) == true){count++;}
+        if(get_allive(board, x-1, y+1) == true){count++;}
+        if(get_allive(board, x, y+1) == true){count++;}
+        if(get_allive(board, x+1, y+1) == true){count++;}
+
+    return count;
 }
 
 Board game_step(const Board& board) {
-    return board;
+    Board new_board = board;
+    for(size_t a= 0; a< board.height; a++){
+        for(size_t i= 0; i< board.width; i++){
+            if(board.cells[ (a * board.width +i)]){ 
+                new_board.cells[a * board.width + i] = ((neighbour_count(board, i, a) == 2) || (neighbour_count(board, i, a) == 3));
+            }
+            else{
+                new_board.cells[a * board.width + i] = (neighbour_count(board, i, a) == 3);
+            }
+        } 
+    }
+    return new_board;
 }
 
 void clear_screen() {
