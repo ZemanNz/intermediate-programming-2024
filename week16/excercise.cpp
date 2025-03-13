@@ -36,6 +36,7 @@ int main(int argc, const char** argv) {
     } else {
         board = default_board();
     }
+    
 
     while (true) {
         board = game_step(board);
