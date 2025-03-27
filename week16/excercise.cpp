@@ -79,7 +79,7 @@ int main(int argc, const char** argv) {
         board = game_step(board);
         clear_screen();
         print_board(board);
-        std::this_thread::sleep_for(50ms);
+        std::this_thread::sleep_for(100ms);
     }
     
     return 0;
@@ -94,9 +94,10 @@ Board parse_board(const std::string& path) {
         abort();
     }
     
+    
     // Read board dimensions from the first two lines.
     infile >> board.width >> board.height;
-    // Discard the rest of the line after reading numbers.
+    // Discard the rest of the line after reading numbers.=
     std::string line;
     std::getline(infile, line);
     
