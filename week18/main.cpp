@@ -82,7 +82,8 @@ Graph graph_non_oriented = {
         {}         // Node 4 is isolated
     };
 
-    // Test cases for oriented graph
+    // Test cases for oriented graph        cdtdtdfg
+
     assert(reachable_oriented(graph_oriented, 0, 3) == true);  // Path: 0 -> 1 -> 3
     assert(reachable_oriented(graph_oriented, 2, 4) == true);  // Path: 2 -> 3 -> 4
     assert(reachable_oriented(graph_oriented, 1, 0) == false); // No path from 1 to 0
