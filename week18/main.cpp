@@ -64,16 +64,6 @@ unsigned horse_steps(Coords start, Coords end) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 using Neighbours = std::vector<std::size_t>;
 using Graph = std::vector<Neighbours>;
 bool abc(const Graph& graph, std::size_t current, std::size_t end, std::set<std::size_t>& visited) {
