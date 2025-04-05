@@ -2,7 +2,6 @@
 #include <vector>
 #include <cassert>
 #include <set>
-
 int factorial(int n) {
     int a = 1;
     int vysledek = 1;
@@ -34,35 +33,117 @@ int collatz(int n) {
         if(n % 2 == 0){
             n = n / 2;
         }
-        if(n % 2 ==1){
+        else if(n % 2 ==1){
             n = 3* n + 1;
             vysledek++;
         }
     }
+    std::cout << " " << std::endl;
+    std::cout << "vysledek: " << vysledek << std::endl;
     return vysledek;
 }
 struct Coords {
     int x;
     int y;
+    bool operator==(const Coords& other) const {
+        return x == other.x && y == other.y;
+    }
 };
 
 bool is_valid(Coords coords) {
+    if ((coords.x >= 0 && coords.y >= 0) && (coords.x < 8 && coords.y < 8)) {
+        return true;
+    }
     return false;
 }
 
 std::vector<Coords> next(Coords now) {
     std::vector<Coords> result;
+    Coords q = {now.x + 1, now.y + 2};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x + 2, now.y + 1};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x + 2, now.y - 1};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x + 1, now.y - 2};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x - 1, now.y - 2};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x - 2, now.y - 1};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x - 2, now.y + 1};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
+    q = {now.x - 1, now.y + 2};
+    if(is_valid(q)){
+        result.push_back(q);
+    }
     return result;
 }
-
-bool can_horse(Coords start, Coords end, unsigned steps) {
+bool existuje(const std::vector<Coords>& vec, const Coords& value) {
+    for (const auto& item : vec) {
+        if (item == value) {
+            return true;
+        }
+    }
     return false;
 }
 
-unsigned horse_steps(Coords start, Coords end) {
-    return 0;
+
+bool can_horse(Coords start, Coords end, unsigned steps) {
+    std::vector<Coords> visited;
+    visited.push_back(start);
+    unsigned vysledek = 0;
+    if((start == end) && (steps % 2 == 0)){ return true;}
+    while(!existuje(visited, end)){
+        vysledek++;
+        for(const auto& coord : visited){
+            std::vector<Coords> next_coords = next(coord);
+            for(std::size_t j = 0; j < next_coords.size(); j++){
+                visited.push_back(next_coords[j]);
+            }
+        }
+    }
+    if(vysledek == steps){
+        return true;
+    }
+    if((vysledek - steps) % 2 == 0){
+        return true;
+    }
+    return false;
 }
 
+
+unsigned horse_steps(Coords start, Coords end) {
+    std::vector<Coords> visited;
+    visited.push_back(start);
+    int vysledek = 0;
+    while(!existuje(visited, end)){
+        vysledek++;
+        for(const auto& coord : visited){
+            std::vector<Coords> next_coords = next(coord);
+            for(std::size_t j = 0; j < next_coords.size(); j++){
+                if(!existuje(visited, next_coords[j])){
+                    visited.push_back(next_coords[j]);
+                }
+            }
+        }
+    }
+    return vysledek;
+}
 
 using Neighbours = std::vector<std::size_t>;
 using Graph = std::vector<Neighbours>;
@@ -129,12 +210,64 @@ int main() {
     assert(fibonacci(10) == 55);
 
     // Test collatz
-    /*
-    assert(collatz(6) == 8);
-    assert(collatz(10) == 6);
+    
+    assert(collatz(6) == 2);
+    assert(collatz(10) == 1);
     assert(collatz(1) == 0);
-    assert(collatz(15) == 17);
-    */
+    assert(collatz(15) == 5);
+
+    assert(can_horse({0, 0}, {0, 0}, 0) == true);
+    assert(can_horse({3, 3}, {3, 3}, 0) == true);
+
+    // Test: Jeden tah – legální tah koně
+    assert(can_horse({0, 0}, {1, 2}, 1) == true);
+    assert(can_horse({0, 0}, {2, 1}, 1) == true);
+
+    // Test: Jeden tah – ale cílová pozice není dosažitelná jedním tahem
+    assert(can_horse({0, 0}, {2, 2}, 1) == false);
+
+    // Test: Návrat do stejné pozice přes dva tahy (např. 0,0 → (1,2) → 0,0)
+    assert(can_horse({0, 0}, {0, 0}, 2) == true);
+
+    // Test: Cesta, která vyžaduje přesně 4 tahy
+    // Například z (0,0) do (4,4) je minimální počet tahů 4
+    assert(can_horse({0, 0}, {4, 4}, 3) == false);
+    assert(can_horse({0, 0}, {4, 4}, 4) == true);
+
+    // Test: Tah z okraje šachovnice
+    // Z (7,7) do (6,5) je legální tah
+    assert(can_horse({7, 7}, {6, 5}, 1) == true);
+
+    // Test: Zkuste detour – když počet tahů je větší, než je minimální cesta
+    // Například z (0,0) do (1,2) je minimálně 1 tah, takže přesně 2 tahy by neměly stačit
+    assert(can_horse({0, 0}, {1, 2}, 2) == false);
+
+    // Test: Další tah z okraje – z (7,7) do (5,6) (legální tah) 
+    assert(can_horse({7, 7}, {5, 6}, 1) == true);
+
+    // Test: Z (7,7) do (4,7) za 2 tahy
+    // Například cesta: (7,7) → (5,6) → (4,7)
+    assert(can_horse({7, 7}, {5, 6}, 5) == true);
+
+    assert(horse_steps({0, 0}, {0, 0}) == 0);
+    assert(horse_steps({3, 3}, {3, 3}) == 0);
+
+    // Cíl je dosažen jedním tahem
+    assert(horse_steps({0, 0}, {1, 2}) == 1);
+    assert(horse_steps({0, 0}, {2, 1}) == 1);
+
+    // Dva tahy
+    assert(horse_steps({0, 0}, {3, 3}) == 2);
+    assert(horse_steps({0, 0}, {4, 2}) == 2);
+
+    // Tři tahy
+    assert(horse_steps({0, 0}, {4, 4}) == 4);
+    assert(horse_steps({0, 0}, {7, 0}) == 5);
+
+    // Delší cesta
+    assert(horse_steps({0, 0}, {7, 7}) == 6);
+    assert(horse_steps({7, 0}, {0, 7}) == 6);
+    
     // Test reachable for graph (not oriented)
     Graph graph = {{1}, {2}, {}, {2}};
     assert(reachable(graph, 3, 0) == true); // Path: 0 -> 1 -> 2 <- 3
