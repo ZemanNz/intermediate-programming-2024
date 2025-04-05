@@ -88,26 +88,40 @@ bool abc(const Graph& graph, std::size_t current, std::size_t end, std::set<std:
     }
     return false;
 }
+
+void printGraph(const Graph& graph) {
+    for (std::size_t i = 0; i < graph.size(); ++i) {
+        std::cout << "Node " << i << ": ";
+        for (std::size_t j = 0; j < graph[i].size(); ++j) {
+            std::cout << graph[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 bool reachable(const Graph& graph, std::size_t start, std::size_t end) {
+    Graph my_graph = graph;
+    for(std::size_t i = 0; i < graph.size(); i++){
+        for(std::size_t j = 0; j < graph[i].size(); j++){
+            my_graph[graph[i][j]].push_back(i);
+        }
+    }
+    //std::cout << "Graph contents:" << std::endl;
+    //printGraph(my_graph);
+    if(graph.size() == 0){
+        return false;
+    }
+    std::set<std::size_t> visited;
+    return abc(my_graph, start, end, visited);
+}
+
+
+bool reachable_oriented(const Graph& graph, std::size_t start, std::size_t end) {
     if(graph.size() == 0){
         return false;
     }
     std::set<std::size_t> visited;
     return abc(graph, start, end, visited);
-}
-
-
-
-
-
-
-bool reachable_oriented(const Graph& graph, std::size_t start, std::size_t end) {
-    for(std::size_t i=0; i < graph[start].size() ; i++){
-        if(graph[start][i] == end){
-            return true;
-        }
-    }
-    return false;
 }
 
 int main() {
@@ -132,13 +146,13 @@ int main() {
     assert(collatz(15) == 17);
     */
     // Test reachable for graph (not oriented)
-    Graph graph = {{1}, {2}, {3}, {}};
-    assert(reachable(graph, 0, 3) == true); // Path: 0 -> 1 -> 2 -> 3
+    Graph graph = {{1}, {2}, {}, {2}};
+    assert(reachable(graph, 3, 0) == true); // Path: 0 -> 1 -> 2 <- 3
     assert(reachable(graph, 0, 1) == true); // Path: 0 -> 1
 
     // Test reachable_oriented for graph (oriented)
-    //assert(reachable_oriented(graph, 0, 3) == true); // Path: 0 -> 1 -> 2 -> 3
-    //assert(reachable_oriented(graph, 1, 2) == true); // Path: 1 -> 2
+    assert(reachable_oriented(graph, 0, 3) == false); // Path: 0 -> 1 -> 2 -> 3
+    assert(reachable_oriented(graph, 1, 2) == true); // Path: 1 -> 2
 
 Graph graph_non_oriented = {
         {1, 2},    // Node 0 is connected to 1 and 2
@@ -165,16 +179,16 @@ Graph graph_non_oriented = {
 
     // Test cases for oriented graph        cdtdtdfg -------------- neco
 
-    //assert(reachable_oriented(graph_oriented, 0, 3) == true);  // Path: 0 -> 1 -> 3
-    //assert(reachable_oriented(graph_oriented, 2, 4) == true);  // Path: 2 -> 3 -> 4
-    //assert(reachable_oriented(graph_oriented, 1, 0) == false); // No path from 1 to 0
-    //assert(reachable_oriented(graph_oriented, 3, 0) == false); // No path from 3 to 0
-    //assert(reachable_oriented(graph_oriented, 4, 4) == true);  // No movement needed, it's the same node
+    assert(reachable_oriented(graph_oriented, 0, 3) == true);  // Path: 0 -> 1 -> 3
+    assert(reachable_oriented(graph_oriented, 2, 4) == true);  // Path: 2 -> 3 -> 4
+    assert(reachable_oriented(graph_oriented, 1, 0) == false); // No path from 1 to 0
+    assert(reachable_oriented(graph_oriented, 3, 0) == false); // No path from 3 to 0
+    assert(reachable_oriented(graph_oriented, 4, 4) == true);  // No movement needed, it's the same node
 
     // Edge case: Empty graph (no nodes)
     Graph empty_graph = {};
     assert(reachable(empty_graph, 0, 0) == false);  // No nodes, so no reachability
-    //assert(reachable_oriented(empty_graph, 0, 0) == false);  // Same for oriented graph
+    assert(reachable_oriented(empty_graph, 0, 0) == false);  // Same for oriented graph
 
     // Test disconnected graph (non-oriented)
     Graph disconnected_graph = {
